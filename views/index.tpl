@@ -31,9 +31,9 @@ and open the template in the editor.
 <div style="padding:30px">
     This site is powered by <a href="http://xia.zhengx.in/">xia.zhengx.in</a> and his VPS.
     <br />
-    And YES, it is Open Source,it is <a href="https://code.google.com/p/url-shortize/">HERE</a>.
+    And YES, it is Open Source,it is <a href="https://github.com/sharljimhtsin/url-shortize">HERE</a>.
 	<br />
-	built by <a href="http://php.net/manual/zh/book.sqlite3.php" >PHP.net</a> & <a href="http://www.sqlite.org/" >SQLite</a>.
+	built by <a href="/welcome" >beego in golang</a> & <a href="http://www.sqlite.org/" >SQLite</a>.
 </div>
 </center>
 </body>
