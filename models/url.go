@@ -1,11 +1,10 @@
 package models
 
 import (
-	"crypto/rand"
-	"encoding/base64"
 	"fmt"
 	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/mattn/go-sqlite3"
+	"math/rand"
 )
 
 type Url struct {
@@ -48,7 +47,7 @@ func AddUrl(url string) (bool, *Url) {
 	o := orm.NewOrm()
 	var m Url
 	m.A = url
-	m.B = randStr(5)
+	m.B = RandStringBytesRemainder(5)
 	_, err := o.Insert(&m)
 	if err != nil {
 		fmt.Println(err)
@@ -57,10 +56,12 @@ func AddUrl(url string) (bool, *Url) {
 	return true, &m
 }
 
-func randStr(len int) string {
-	buff := make([]byte, len)
-	_, _ = rand.Read(buff)
-	str := base64.StdEncoding.EncodeToString(buff)
-	// Base 64 can be longer than len
-	return str[:len]
+const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+func RandStringBytesRemainder(n int) string {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letterBytes[rand.Int63()%int64(len(letterBytes))]
+	}
+	return string(b)
 }
