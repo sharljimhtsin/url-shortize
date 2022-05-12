@@ -5,6 +5,7 @@ import (
 	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/mattn/go-sqlite3"
 	"math/rand"
+	"time"
 )
 
 type Url struct {
@@ -16,7 +17,11 @@ func (m *Url) TableName() string {
 	return "url"
 }
 
+var r *rand.Rand // Rand for this package.
+
 func init() {
+	// new rand seed with unix timestamp
+	r = rand.New(rand.NewSource(time.Now().UnixNano()))
 	//DB
 	_ = orm.RegisterDriver("sqlite3", orm.DRSqlite)
 	_ = orm.RegisterDataBase("default", "sqlite3", "db/url-shortize.db")
@@ -61,7 +66,7 @@ const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456
 func RandStringBytesRemainder(n int) string {
 	b := make([]byte, n)
 	for i := range b {
-		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+		b[i] = letterBytes[r.Intn(len(letterBytes))]
 	}
 	return string(b)
 }
