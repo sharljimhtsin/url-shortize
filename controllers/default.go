@@ -55,7 +55,8 @@ func (c *MainController) Query() {
 }
 
 func (c *MainController) List() {
-	data := models.GetAllUrls()
+	page, _ := c.GetInt("p")
+	data := models.GetAllUrls(page)
 	c.Data["json"] = data
 	_ = c.ServeJSON()
 }
