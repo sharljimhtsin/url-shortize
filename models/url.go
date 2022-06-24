@@ -29,12 +29,13 @@ func init() {
 	orm.Debug = false
 }
 
-func GetAllUrls() []*Url {
+func GetAllUrls(p int) []*Url {
 	o := orm.NewOrm()
 	m := new(Url)
 	query := o.QueryTable(m)
 	var urls []*Url
-	_, _ = query.Limit(100).All(&urls)
+	var offset = p * 100
+	_, _ = query.Limit(100).Offset(offset).All(&urls)
 	return urls
 }
 
